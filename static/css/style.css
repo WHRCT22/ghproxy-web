@@ -1,0 +1,469 @@
+/* ==========================================================================
+   1. 基础样式
+========================================================================== */
+
+/* 字体定义 */
+@font-face {
+    font-family: 'HarmonyOS_Sans_SC';
+    src: url('https://cdn.akams.cn/fonts/HarmonyOS_Sans_SC_Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* 基础样式设置 */
+body {
+    font-family: 'HarmonyOS_Sans_SC', system-ui, -apple-system, sans-serif;
+}
+
+/* 标题样式 */
+.section-title {
+    font-family: 'HarmonyOS_Sans_SC';
+    font-weight: 500;
+    color: #374151;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.table-header {
+    font-family: 'HarmonyOS_Sans_SC';
+    font-weight: bold !important;
+    color: #374151;
+}
+
+/* 全局过渡动画 */
+* {
+    transition-property: color, background-color, border-color;
+    transition-duration: 200ms;
+}
+
+/* ==========================================================================
+   2. 布局组件
+========================================================================== */
+
+/* 容器布局 */
+.container {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* 主区域样式 */
+.main-title {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.main-description {
+    margin-bottom: 1.5rem;
+}
+
+.main-content {
+    padding: 1.5rem;
+}
+
+/* ==========================================================================
+   3. 导航栏组件
+========================================================================== */
+
+/* ==========================================================================
+   4. 代码块组件
+========================================================================== */
+
+/* 代码块容器 */
+.code-block {
+    position: relative;
+    width: 100%;
+    background-color: #F9FAFB;
+    border-radius: 0.5rem;
+    overflow: visible !important;
+    margin-bottom: 3.5rem;
+}
+
+/* 代码内容区域 */
+.code-content {
+    width: 100%;
+    padding: 1rem;
+    background-color: #F9FAFB;
+    border-radius: 0.5rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 0.25;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+/* 代码内容文本居中 */
+.code-content > div {
+    text-align: center;
+}
+
+/* 代码块间距处理 */
+.space-y-4 > .code-block:not(:last-child) {
+    margin-bottom: 5rem !important;
+}
+
+.space-y-4 > .code-block:last-child {
+    margin-bottom: 3.5rem !important;
+}
+
+/* Webkit 滚动条样式 */
+.code-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.code-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.code-content::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.5);
+    border-radius: 4px;
+}
+
+.code-content::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(156, 163, 175, 0.7);
+}
+
+/* ==========================================================================
+   5. 复制按钮组件
+========================================================================== */
+
+/* 复制按钮容器 */
+.copy-buttons {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -3rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    width: auto;
+    white-space: nowrap;
+    z-index: 999;
+}
+
+/* 复制按钮样式 */
+.copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    background-color: #3B82F6;
+    border-radius: 0.375rem;
+    color: white;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    cursor: pointer;
+    height: 2.5rem;
+}
+
+.copy-btn:hover {
+    background-color: #2563EB;
+}
+
+/* 复制状态样式 */
+.copy-success {
+    background-color: #10B981 !important;
+    color: white !important;
+}
+
+.copy-error {
+    background-color: #EF4444 !important;
+    color: white !important;
+}
+
+/* ==========================================================================
+   6. 表单组件
+========================================================================== */
+
+/* 输入框组样式 */
+.group {
+    position: relative;
+    height: 38px !important;
+    display: flex;
+    align-items: center;
+}
+
+.group::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    left: -2px;
+    right: -2px;
+    border-radius: 0.5rem;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+}
+
+/* 输入框焦点状态 */
+.group:focus-within::after {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.group:focus-within #proxy-selector,
+.group:focus-within #github-url {
+    border-color: #3B82F6;
+}
+
+.group:focus-within #proxy-selector {
+    border-right-color: transparent;
+}
+
+.group:focus-within #github-url {
+    border-left-color: transparent;
+}
+
+/* 输入框和选择器统一高度 */
+#proxy-selector,
+#github-url,
+#download-button {
+    height: 38px !important;
+}
+
+/* 移除输入框默认样式 */
+#github-url:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+/* Z-index 层级管理 */
+#proxy-selector {
+    z-index: 2;
+}
+
+#github-url {
+    z-index: 1;
+}
+
+.group:focus-within #proxy-selector,
+.group:focus-within #github-url {
+    z-index: 3;
+}
+
+/* ==========================================================================
+   7. 表格组件
+========================================================================== */
+
+/* 表格列宽样式 */
+.mirror-name-cell {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 延迟显示颜色 */
+.delay-good {
+    @apply text-green-500;
+}
+.delay-normal {
+    @apply text-yellow-500;
+}
+.delay-bad {
+    @apply text-red-500;
+}
+
+/* 状态图标动画 */
+.status-checking i {
+    @apply animate-spin text-blue-500;
+}
+.status-success i {
+    @apply text-green-500;
+}
+.status-failed i {
+    @apply text-red-500;
+}
+
+/* ==========================================================================
+   8. 选项卡组件
+========================================================================== */
+
+/* 选项卡按钮基础样式 */
+[data-tab] {
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    --tab-border-scale: 0;
+}
+
+/* 选项卡状态样式 */
+[data-tab].text-blue-500 {
+    color: rgb(59, 130, 246) !important;
+}
+
+[data-tab].text-gray-500 {
+    color: rgb(107, 114, 128);
+}
+
+[data-tab].text-gray-500:hover {
+    color: rgb(55, 65, 81);
+}
+
+/* 选项卡底部边框 */
+[data-tab]::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: rgb(59, 130, 246);
+    transform: scaleX(var(--tab-border-scale));
+    transition: transform 0.3s ease-in-out;
+}
+
+/* ==========================================================================
+   9. 深色模式
+========================================================================== */
+
+/* 代码块深色模式 */
+.dark .code-block {
+    background-color: #374151;
+}
+
+.dark .code-content {
+    background-color: #374151;
+    color: #E5E7EB;
+}
+
+/* 复制按钮深色模式 */
+.dark .copy-btn {
+    background-color: #3B82F6;
+    color: white;
+}
+
+.dark .copy-btn:hover {
+    background-color: #2563EB;
+}
+
+/* 选项卡深色模式 */
+.dark [data-tab].text-blue-500 {
+    color: rgb(96, 165, 250) !important;
+}
+
+.dark [data-tab].text-gray-500 {
+    color: rgb(156, 163, 175);
+}
+
+.dark [data-tab].text-gray-500:hover {
+    color: rgb(209, 213, 219);
+}
+
+.dark [data-tab]::after {
+    background-color: rgb(96, 165, 250);
+}
+
+/* 移动端菜单深色模式 */
+.dark #mobile-menu {
+    background-color: rgb(31 41 55);
+    border: 1px solid rgb(55 65 81);
+}
+
+/* ==========================================================================
+   10. 响应式布局
+========================================================================== */
+
+@media (max-width: 640px) {
+    /* 代码块移动端适配 */
+    .code-block {
+        margin-bottom: 4.5rem !important;
+        position: relative;
+        padding: 0;
+    }
+    
+    .space-y-4 > .code-block:not(:last-child) {
+        margin-bottom: 5.5rem !important;
+    }
+
+    /* 复制按钮移动端样式 */
+    .copy-buttons {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -3.5rem;
+        transform: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .copy-btn {
+        flex: 1;
+        height: 3rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+        gap: 0.5rem;
+        white-space: nowrap;
+    }
+
+    /* 导航栏移动端适配 */
+    nav {
+        padding-top: 0.75rem;
+    }
+
+    #proxy-selector {
+        width: 48px !important;
+        padding: 0 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    #proxy-selector .fas {
+        position: static !important;
+        margin-left: 0 !important;
+    }
+
+    #proxy-dropdown {
+        width: 180px !important;
+    }
+
+    /* 输入框区域移动端适配 */
+    .flex.items-center.space-x-2 {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        width: 100% !important;
+    }
+
+    .relative.flex-1 {
+        width: 100% !important;
+    }
+
+    /* 下载按钮移动端样式 */
+    .flex.items-center:last-child {
+        width: 100% !important;
+    }
+
+    #download-button {
+        width: 100% !important;
+        justify-content: center !important;
+        height: 38px !important;
+        padding: 0.5rem 1rem !important;
+        margin: 0 !important;
+    }
+
+    /* 移动端菜单样式 */
+    .nav-content > div:last-child {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+    }
+
+    .flex.items-center.sm\:hidden {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .nav-content > div:first-child {
+        flex: 0 0 auto;
+    }
+}
