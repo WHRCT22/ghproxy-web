@@ -1,0 +1,24 @@
+name: sync code
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@master
+    - name: Upload to WebDAV
+      uses: bxb100/action-upload@main
+      with:
+        provider: webdav
+        provider_options: |
+          endpoint=${{ secrets.WEBDAV_ENDPOINT }}
+          username=${{ secrets.WEBDAV_USERNAME }}
+          password=${{ secrets.WEBDAV_PASSWORD }}
+          root=${{ secrets.WEBDAV_ROOT }}
+        include: './**'
