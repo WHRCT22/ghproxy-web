@@ -14,7 +14,7 @@
     <!-- 引入 Font Awesome -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> -->
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.akams.cn/github/style.css">
+    <link rel="stylesheet" href="static/css/style.css">
     <!-- 引入 Waline 客户端 -->
     <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css"/>
     <script>
@@ -304,9 +304,9 @@
                     </p>
                 </div>
                 <div class="flex items-center justify-center space-x-8">
-                    <a href="https://akams.cn"><img src="https://cdn.akams.cn/images/shang.svg" class="h-8 w-8 dark:invert" alt="感谢打赏"></a>
-                    <a href="https://x.com"><img src="https://cdn.akams.cn/images/twitter.svg" class="h-8 w-8 dark:invert" alt="Twitter"></a>
-                    <a href="https://github.com/oopsunix"><img src="https://cdn.akams.cn/images/github.svg" class="h-8 w-8 dark:invert" alt="GitHub"></a>
+                    <a href="#" onclick="sendEmail('dTFzMWFAZm94bWFpbC5jb20=')"><img src="static/images/gmail.svg" class="h-8 w-8 dark:invert" alt="Email"></a>
+                    <a href="https://github.com/oopsunix/ghproxy-web"><img src="static/images/github.svg" class="h-8 w-8 dark:invert" alt="GitHub"></a>
+                    <a href="https://x.com"><img src="static/images/twitter.svg" class="h-8 w-8 dark:invert" alt="Twitter"></a>
                 </div>
             </div>
         </div>
@@ -314,8 +314,16 @@
     <script>
       const currentYear = new Date().getFullYear();
       document.getElementById('current-year').textContent = currentYear;
+      function sendEmail(encodedEmail) {
+            const decodedEmail = atob(encodedEmail);
+            const mailtoLink = document.createElement('a');
+            mailtoLink.href = 'mailto:' + decodedEmail;
+            document.body.appendChild(mailtoLink);
+            mailtoLink.click();
+            // document.body.removeChild(mailtoLink); // 可选：移除临时创建的a标签
+        }
     </script>
-    <script src="https://cdn.akams.cn/github/script.js"></script>
+    <script src="static/js/script.js"></script>
     <script defer src="https://cdn.akams.cn/umami/script.js" data-website-id="daefb51d-9941-44e7-9ff5-c197263ededb" data-host-url="https://umami.akams.cn" data-domains="github.akams.cn"></script>
     <script src="https://cdn.akams.cn/static/js/waline.js"></script>
 </body>
