@@ -1,7 +1,7 @@
 /**
- * 
+ *
  * 全局配置
- * 
+ *
  */
 // 使用 Tailwind 配置深色模式
 tailwind.config = {
@@ -14,9 +14,9 @@ tailwind.config = {
 
 
 /**
- * 
+ *
  * 全局变量
- * 
+ *
  */
 // 选项卡配置
 const tabs = {
@@ -57,9 +57,9 @@ let currentProxy = 'github.akams.cn';
 
 
 /**
- * 
+ *
  * 主题相关功能
- * 
+ *
  */
 // 主题初始化
 function initTheme() {
@@ -86,16 +86,16 @@ function toggleTheme() {
 
 
 /**
- * 
+ *
  * 下载功能
- * 
+ *
  */
 // 处理直接下载的函数
 function handleDirectDownload() {
     // 获取输入的 URL
     const urlInput = document.querySelector('#github-url');
     const url = urlInput.value.trim();
-    
+
     // 验证输入
     if (!url) {
         alert('请输入 GitHub 链接');
@@ -114,7 +114,7 @@ function handleDirectDownload() {
 
     // 生成代理 URL
     const proxyUrl = generateProxyUrl(url);
-    
+
     // 在新窗口打开下载链接
     window.open(proxyUrl, '_blank');
 }
@@ -122,9 +122,9 @@ function handleDirectDownload() {
 
 
 /**
- * 
+ *
  * 输入框下拉菜单功能
- * 
+ *
  */
 // 切换代理下拉菜单
 function toggleProxyDropdown() {
@@ -138,7 +138,7 @@ function selectProxy(name, url) {
     // 更新当前代理源，移除 https:// 前缀
     currentProxy = new URL(url).hostname;
     document.getElementById('proxy-dropdown').classList.add('hidden');
-    
+
     // 如果输入框有值，重新生成链接
     const urlInput = document.getElementById('github-url');
     if (urlInput.value.trim()) {
@@ -161,7 +161,7 @@ function generateProxyOptions() {
     dropdown.innerHTML = `
         <div class="py-1">
             ${options.map(option => `
-                <button class="w-full px-4 py-2 text-center text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700" 
+                <button class="w-full px-4 py-2 text-center text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                         onclick="selectProxy('${option.text}', '${option.value}')">
                     ${option.text}
                 </button>
@@ -177,9 +177,9 @@ function generateProxyOptions() {
 
 
 /**
- * 
+ *
  * 选项卡相关功能
- * 
+ *
  */
 // 更新代理 URL
 function updateProxyUrl() {
@@ -203,7 +203,7 @@ function renderTabContent(tabId) {
     const hasInput = document.querySelector('#github-url').value.trim() !== '';
     const tabButtons = document.querySelectorAll('[data-tab]');
     const contentArea = document.querySelector('#tab-content');
-    
+
     // 更新选项卡样式
     tabButtons.forEach(button => {
         if (button.dataset.tab === tabId) {
@@ -280,9 +280,9 @@ function renderTabContent(tabId) {
 
 
 /**
- * 
+ *
  * 复制功能
- * 
+ *
  */
 // 复制到剪贴板
 function copyToClipboard(text, button) {
@@ -291,16 +291,16 @@ function copyToClipboard(text, button) {
             // 更新按钮状态
             const icon = button.querySelector('i');
             const span = button.querySelector('span');
-            
+
             // 保存原始状态
             const originalIcon = 'fas fa-copy';
             const originalText = '复制';
-            
+
             // 更改为成功状态
             icon.className = 'fas fa-check';
             span.textContent = '已复制';
             button.classList.add('copy-success');
-            
+
             // 2秒后恢复原始状态
             setTimeout(() => {
                 icon.className = originalIcon;
@@ -311,7 +311,7 @@ function copyToClipboard(text, button) {
         .catch(err => {
             console.error('复制失败:', err);
             button.classList.add('copy-error');
-            
+
             setTimeout(() => {
                 button.classList.remove('copy-error');
             }, 2000);
@@ -321,9 +321,9 @@ function copyToClipboard(text, button) {
 
 
 /**
- * 
+ *
  * 辅助函数
- * 
+ *
  */
 // URL 处理和验证
 function validateGitHubUrl(url) {
@@ -344,19 +344,19 @@ function generateProxyUrl(url) {
 function showError(message) {
     const input = document.querySelector('#github-url');
     input.classList.add('border-red-500', 'focus:ring-red-500');
-    
+
     // 显示错误消息
     const errorDiv = document.createElement('div');
     errorDiv.className = 'text-red-500 text-sm mt-1';
     errorDiv.textContent = message;
-    
+
     const existingError = input.parentNode.querySelector('.text-red-500');
     if (existingError) {
         existingError.remove();
     }
-    
+
     input.parentNode.appendChild(errorDiv);
-    
+
     // 3秒后清除错误状态
     setTimeout(() => {
         input.classList.remove('border-red-500', 'focus:ring-red-500');
@@ -397,14 +397,14 @@ const MirrorsChecker = {
                 console.log('开始获取节点列表...');
                 const response = await fetch('https://api.akams.cn/github');
                 console.log('API响应:', response);
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
+
                 const data = await response.json();
                 console.log('API返回数据:', data);
-                
+
                 if (data.code === 200 && Array.isArray(data.data) && data.data.length > 0) {
                     console.log('成功获取节点列表:', data.data);
                     // 从 data 数组中提取 url 字段
@@ -418,27 +418,33 @@ const MirrorsChecker = {
                         baseLatency: item.latency,
                         speed: item.speed
                     }));
-                    
+
                     MirrorsChecker.state.stats.total = data.data.length;
                     console.log('总节点数:', MirrorsChecker.state.stats.total);
-                    
+
                     // 清空现有表格内容
                     const tbody = document.getElementById('mirrors-tbody');
                     tbody.innerHTML = '';
-                    
+
+                    // 清空统计信息
+                    const statsContainer = document.querySelector('#mirrors-container > div:first-child');
+                    if (statsContainer && statsContainer.classList.contains('bg-gray-50')) { // 简单判断是否是 stats container
+                        statsContainer.remove();
+                    }
+
                     const isMobile = window.innerWidth < 640;
-                    
+
                     // 为每个节点创建表格行
                     MirrorsChecker.state.mirrors.forEach(mirror => {
                         const template = document.getElementById('mirror-row-template');
                         const row = template.content.cloneNode(true).querySelector('tr');
-                        
+
                         const nameCell = row.querySelector('.mirror-name-cell');
                         const nameSpan = nameCell.querySelector('.mirror-name');
-                        
+
                         nameSpan.textContent = mirror.text;
                         nameCell.title = mirror.text;
-                        
+
                         if (isMobile) {
                             // 移动端模板
                             row.innerHTML = `
@@ -456,7 +462,7 @@ const MirrorsChecker = {
                                     </button>
                                 </td>`;
                         }
-                        
+
                         tbody.appendChild(row);
                     });
                 } else {
@@ -471,7 +477,7 @@ const MirrorsChecker = {
         testMirror(mirror, element) {
             console.log('开始测试节点:', mirror.text);
             if (!mirror.value.endsWith('/')) mirror.value += '/';
-            
+
             return new Promise((resolve) => {
                 const start = Date.now();
                 const img = new Image();
@@ -518,7 +524,7 @@ const MirrorsChecker = {
         updateProgress(progress) {
             const progressBar = document.getElementById('progress-bar');
             progressBar.style.width = `${Math.round(progress)}%`;
-            
+
             // 添加进度条动画
             progressBar.style.transition = 'width 300ms ease-out';
         },
@@ -545,7 +551,7 @@ const MirrorsChecker = {
 
             // 更新状态显示 - 仅在非移动端显示
             if (statusSpan && !isMobile) {
-                statusSpan.innerHTML = result.success ? 
+                statusSpan.innerHTML = result.success ?
                     `<i class="fas fa-check-circle mr-2 text-green-500"></i><span class="text-gray-900 dark:text-gray-200">可用</span>` :
                     `<i class="fas fa-times-circle mr-2 text-red-500"></i><span class="text-gray-900 dark:text-gray-200">不可用</span>`;
             }
@@ -565,10 +571,16 @@ const MirrorsChecker = {
         showStats() {
             const { total, success, failed } = MirrorsChecker.state.stats;
             const container = document.getElementById('mirrors-container');
-            
+
+            // **使用 ID 选择器更可靠地清空统计信息容器**
+            const statsContainer = document.getElementById('mirrors-stats-container');
+            if (statsContainer) {
+                statsContainer.remove();
+            }
+
             // 添加统计信息到表格上方
             const statsHtml = `
-                <div class="px-6 py-3 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <div id="mirrors-stats-container" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                     <div class="flex justify-between text-sm">
                         <span class="text-gray-500 dark:text-gray-400">总节点数：${total}</span>
                         <span class="text-green-500">可用节点：${success}</span>
@@ -576,7 +588,7 @@ const MirrorsChecker = {
                     </div>
                 </div>
             `;
-            
+
             container.querySelector('.overflow-x-auto').insertAdjacentHTML('beforebegin', statsHtml);
         }
     },
@@ -587,22 +599,22 @@ const MirrorsChecker = {
             const tbody = document.getElementById('mirrors-tbody');
             const rows = Array.from(tbody.getElementsByTagName('tr'));
             const isMobile = window.innerWidth < 640;
-            
+
             rows.sort((a, b) => {
                 // 获取延迟值
                 const delayA = parseInt(a.querySelector('.mirror-delay').textContent) || Infinity;
                 const delayB = parseInt(b.querySelector('.mirror-delay').textContent) || Infinity;
-                
+
                 // 移动端只按延迟排序，PC端先按状态后按延迟排序
                 if (!isMobile) {
                     const statusA = a.querySelector('.mirror-status');
                     const statusB = b.querySelector('.mirror-status');
                     const successA = statusA && statusA.textContent.includes('可用');
                     const successB = statusB && statusB.textContent.includes('可用');
-                    
+
                     if (successA !== successB) return successB - successA;
                 }
-                
+
                 // 按延迟排序
                 return delayA - delayB;
             });
@@ -616,18 +628,18 @@ const MirrorsChecker = {
     async init() {
         try {
             await this.api.getMirrors();
-            
+
             // 更新表格列显示
             this.updateTableColumns();
-            
+
             // 2. 获取所有表格行元素
             const tbody = document.getElementById('mirrors-tbody');
             const rows = Array.from(tbody.getElementsByTagName('tr'));
-            
+
             // 3. 初始化进度
             let progress = 0;
             this.ui.updateProgress(progress);
-            
+
             // 4. 并发执行所有节点检测
             const promises = this.state.mirrors.map((mirror, index) => {
                 return this.api.testMirror(mirror, rows[index]).then(result => {
@@ -640,13 +652,13 @@ const MirrorsChecker = {
 
             // 5. 等待所有检测完成
             await Promise.all(promises);
-            
+
             // 6. 按延迟排序
             this.utils.sortByLatency();
-            
+
             // 7. 显示统计信息
             this.ui.showStats();
-            
+
         } catch (error) {
             console.error('Mirrors Checker Error:', error);
             throw error;
@@ -684,10 +696,10 @@ const MirrorsChecker = {
                 <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                     操作
                 </th>`;
-            
+
             // 更新每一行只显示基础列
             Array.from(rows).forEach(row => {
-                const mirror = this.state.mirrors.find(m => 
+                const mirror = this.state.mirrors.find(m =>
                     m.text === row.querySelector('.mirror-name-cell').textContent
                 );
                 if (mirror) {
@@ -715,7 +727,7 @@ const MirrorsChecker = {
 
         // 更新每一行的数据
         Array.from(rows).forEach(row => {
-            const mirror = this.state.mirrors.find(m => 
+            const mirror = this.state.mirrors.find(m =>
                 m.text === row.querySelector('.mirror-name-cell').textContent
             );
             if (mirror) {
@@ -878,47 +890,99 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // 节点检测按钮事件监听
-    document.getElementById('check-mirrors-btn').addEventListener('click', async function() {
-        try {
-            console.log('开始节点检测...');
-            const container = document.getElementById('mirrors-container');
-            container.classList.remove('hidden');
-            
-            // 重置状态
-            MirrorsChecker.state.stats = { total: 0, success: 0, failed: 0 };
-            
-            // 开始检测
-            console.log('调用 MirrorsChecker.init()...');
-            await MirrorsChecker.init();
-            console.log('节点检测完成');
+    const container = document.getElementById('mirrors-container'); // 获取容器
 
-            // 检测完成后显示提示
-            const notification = document.createElement('div');
-            notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transition-opacity duration-500 z-50';
-            notification.textContent = '节点检测完成！';
-            document.body.appendChild(notification);
-
-            // 3秒后淡出消失
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                setTimeout(() => notification.remove(), 500);
-            }, 3000);
-
-        } catch (error) {
-            console.error('节点检测失败:', error);
-            // 显示详细错误信息
-            const errorNotification = document.createElement('div');
-            errorNotification.className = 'fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
-            errorNotification.textContent = `节点检测失败: ${error.message}`;
-            document.body.appendChild(errorNotification);
-
-            setTimeout(() => {
-                errorNotification.style.opacity = '0';
-                setTimeout(() => errorNotification.remove(), 500);
-            }, 3000);
+    // 先检测结果容器是否存在，存在的话就先清空
+    if (container) {
+        // 容器存在，执行清空操作
+        const tbody = document.getElementById('mirrors-tbody');
+        if (tbody) { // 确保 tbody 也存在
+            console.log("Before clearing tbody.innerHTML:", tbody.innerHTML); // ADDED LOG
+            tbody.innerHTML = ''; // 清空表格内容
+            console.log("After clearing tbody.innerHTML:", tbody.innerHTML);  // ADDED LOG
+        } else {
+            console.warn('mirrors-tbody not found inside mirrors-container, but container exists.');
+            // 可以选择是否清空 container 本身的内容，如果 tbody 是必须的子元素
+            // container.innerHTML = ''; // 如果需要清空 container 的所有内容，可以这样做
         }
-    });
+    } else {
+        console.warn('mirrors-container not found! Detection process might not work as expected.');
+        // 如果容器不存在，可以根据需求选择是否停止执行后续检测逻辑
+        // 例如，可以 return; 提前结束函数执行，或者继续执行但可能无法正确显示结果
+        // 这里选择继续执行，但会输出警告信息
+    }
+
+
+     // 节点检测按钮事件监听
+document.getElementById('check-mirrors-btn').addEventListener('click', async function() {
+const checkMirrorsBtn = this; // 获取按钮元素
+const originalText = checkMirrorsBtn.textContent;
+const originalBgColor = window.getComputedStyle(checkMirrorsBtn).backgroundColor; // 获取原始背景色
+
+checkMirrorsBtn.textContent = '测速中...'; // 改成测速中
+checkMirrorsBtn.classList.add('bg-blue-300', 'cursor-not-allowed'); // 改颜色和禁用
+checkMirrorsBtn.disabled = true;
+
+try {
+    console.log('开始节点检测...');
+
+    const container = document.getElementById('mirrors-container'); // 获取容器
+
+    // 再次检测容器是否存在，并清空
+    if (container) {
+        container.classList.remove('hidden'); // 确保容器显示
+
+        const tbody = document.getElementById('mirrors-tbody');
+        if (tbody) {
+            console.log("Before clearing tbody.innerHTML (inside click):", tbody.innerHTML); // ADDED LOG
+            tbody.innerHTML = ''; // 清空表格内容
+            console.log("After clearing tbody.innerHTML (inside click):", tbody.innerHTML); // ADDED LOG
+        }
+    } else {
+        console.error('mirrors-container not found! Cannot proceed with detection.');
+        throw new Error('Result container not found. Cannot display results.'); // 抛出错误，停止后续检测
+    }
+
+
+    // 重置状态
+    MirrorsChecker.state.stats = { total: 0, success: 0, failed: 0 };
+
+
+    // 开始检测
+    console.log('调用 MirrorsChecker.init()...');
+    await MirrorsChecker.init();
+    console.log('节点检测完成');
+
+    // 检测完成后显示提示
+    const notification = document.createElement('div');
+    notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transition-opacity duration-500 z-50';
+    notification.textContent = '节点检测完成！';
+    document.body.appendChild(notification);
+
+    // 3秒后淡出消失
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => notification.remove(), 500);
+    }, 3000);
+
+} catch (error) {
+    console.error('节点检测失败:', error);
+    // 显示详细错误信息
+    const errorNotification = document.createElement('div');
+    errorNotification.className = 'fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    errorNotification.textContent = `节点检测失败: ${error.message}`;
+    document.body.appendChild(errorNotification);
+
+    setTimeout(() => {
+        errorNotification.style.opacity = '0';
+        setTimeout(() => errorNotification.remove(), 500);
+    }, 3000);
+} finally {
+    checkMirrorsBtn.textContent = originalText; // 恢复文字
+    checkMirrorsBtn.classList.remove('bg-blue-300', 'cursor-not-allowed'); // 恢复颜色和启用状态
+    checkMirrorsBtn.disabled = false;
+}
+});
 
     // 绑定移动端菜单事件
     const menuButton = document.getElementById('mobile-menu-button');
@@ -930,7 +994,7 @@ document.addEventListener('DOMContentLoaded', function() {
         menuButton.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             if (mobileMenu.classList.contains('hidden')) {
                 // 显示菜单
                 mobileMenu.classList.remove('hidden');
@@ -946,13 +1010,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // 移动端节点检测按钮点击事件
         mobileCheckMirrorsBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             // 触发桌面端检测按钮的点击事件
             const desktopBtn = document.getElementById('check-mirrors-btn');
             if (desktopBtn) {
                 desktopBtn.click();
             }
-            
+
             // 关闭移动端菜单
             closeMobileMenu();
         });
@@ -976,7 +1040,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 关闭菜单的统一处理函数
         function closeMobileMenu() {
             mobileMenu.classList.add('menu-slide-out');
-            
+
             // 等待动画结束后隐藏菜单
             setTimeout(() => {
                 mobileMenu.classList.add('hidden');
@@ -984,7 +1048,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 200); // 与动画时长保持一致
         }
     }
-    
+
     // 确保页面加载时菜单是隐藏的
     if (mobileMenu) {
         mobileMenu.classList.add('hidden');
