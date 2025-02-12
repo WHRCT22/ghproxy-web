@@ -5,7 +5,9 @@
 /* 字体定义 */
 @font-face {
     font-family: 'HarmonyOS_Sans_SC';
-    src: url('https://cdn.akams.cn/fonts/HarmonyOS_Sans_SC_Medium.ttf') format('truetype');
+    src: url('https://cdn.akams.cn/fonts/HarmonyOS_Sans_SC_Medium.woff2') format('woff2'), /* WOFF2 优先 */
+         url('https://cdn.akams.cn/fonts/HarmonyOS_Sans_SC_Medium.woff') format('woff'),   /* WOFF 作为备选 */
+         url('https://cdn.akams.cn/fonts/HarmonyOS_Sans_SC_Medium.ttf') format('truetype'); /* TTF 作为最后的备选 */
     font-weight: 500;
     font-style: normal;
 }
