@@ -3,23 +3,26 @@
 ========================================================================== */
 
 /* 字体定义 */
+/*
 @font-face {
     font-family: 'HarmonyOS_Sans_SC';
-    src: url('/static/fonts/HarmonyOS_Sans_SC_Medium.woff2') format('woff2'), /* WOFF2 优先 */
-         url('/static/fonts/HarmonyOS_Sans_SC_Medium.woff') format('woff'),   /* WOFF 作为备选 */
-         url('/static/fonts/fonts/HarmonyOS_Sans_SC_Medium.ttf') format('truetype'); /* TTF 作为最后的备选 */
+    src: url('/static/fonts/HarmonyOS_Sans_SC_Medium.woff2') format('woff2'),
+         url('/static/fonts/HarmonyOS_Sans_SC_Medium.woff') format('woff'),
+         url('/static/fonts/fonts/HarmonyOS_Sans_SC_Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
 }
+*/
 
 /* 基础样式设置 */
 body {
-    font-family: 'HarmonyOS_Sans_SC', system-ui, -apple-system, sans-serif;
+    /* font-family: 'HarmonyOS_Sans_SC', system-ui, -apple-system, sans-serif; */
+    font-family: system-ui, -apple-system, sans-serif; /*  已注释 HarmonyOS_Sans_SC，使用默认系统字体 */
 }
 
 /* 标题样式 */
 .section-title {
-    font-family: 'HarmonyOS_Sans_SC';
+    /* font-family: 'HarmonyOS_Sans_SC'; */ /* 已注释 HarmonyOS_Sans_SC */
     font-weight: 500;
     color: #374151;
     font-size: 14px;
@@ -27,7 +30,7 @@ body {
 }
 
 .table-header {
-    font-family: 'HarmonyOS_Sans_SC';
+    /* font-family: 'HarmonyOS_Sans_SC'; */ /* 已注释 HarmonyOS_Sans_SC */
     font-weight: bold !important;
     color: #374151;
 }
@@ -376,7 +379,7 @@ body {
         position: relative;
         padding: 0;
     }
-    
+
     .space-y-4 > .code-block:not(:last-child) {
         margin-bottom: 5.5rem !important;
     }
